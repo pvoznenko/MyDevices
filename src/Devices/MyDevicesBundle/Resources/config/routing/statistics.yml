@@ -1,0 +1,4 @@
+statistics_pie_chart_data:
+    pattern:  /pie-chart-data
+    defaults: { _controller: "DevicesMyDevicesBundle:Statistics:getDataForPieChart" }
+    requirements: { _method: post }

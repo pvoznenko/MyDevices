@@ -1,0 +1,14 @@
+{
+  "name": "Browser",
+  "homepage": "https://github.com/thorst/Browser",
+  "_release": "1e0b477f5d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1e0b477f5d25f6a506c19d318c22d4204e570eb3"
+  },
+  "_source": "https://github.com/thorst/Browser.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/thorst/Browser.git",
+  "_direct": true
+}

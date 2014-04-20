@@ -1,0 +1,28 @@
+body {
+    min-height: 500px;
+    padding-top: 70px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.jumbotron h1 {
+    font-size: 36px;
+}
+
+table.record_properties {
+    max-width: 800px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+table.record_properties tbody th {
+    min-width: 175px;
+}
+
+#edit-device .control-label {
+    padding-top: 2px;
+}

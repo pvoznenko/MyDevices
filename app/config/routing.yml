@@ -1,0 +1,3 @@
+devices_my_devices:
+    resource: "@DevicesMyDevicesBundle/Resources/config/routing.yml"
+    prefix:   /

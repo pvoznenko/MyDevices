@@ -1,0 +1,117 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}My Devices{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/style.css') }}">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+{% endblock %}
+
+{% block body %}
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path("device") }}">My Devices</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                {% if is_granted("ROLE_ADMIN") %}
+                    <ul class="nav navbar-nav">
+                        <li class="{% if app.request.attributes.get('_route') starts with 'statistics' %}active{% endif %}">
+                            <a href="{{ path("statistics_index") }}">Statistics</a>
+                        </li>
+                    </ul>
+                {% endif %}
+                <ul class="nav navbar-nav navbar-right list-inline">
+                    <li><a href="{{ path("fos_user_security_logout") }}">{{ app.user.username }}, logout?</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron">
+            {% block content %}{% endblock %}
+        </div>
+    </div><!-- /.container -->
+
+    {# Since Admin can not add his device to device list #}
+    {% if is_granted("ROLE_ADMIN") == false %}
+
+        {# Modal dialog apears when system discover new user's device#}
+        <div class="modal fade" tabindex="-1"  id="add-new-device-modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">New Device Detected!</h4>
+                    </div>
+                    <div class="modal-body">
+                        Our website detected that you access from new Device. Would you like to add new device to our device list?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"  data-dismiss="modal" id="add-new-device" data-loading-text="Adding...">Add Device</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Modal dialog to show errors#}
+        <div class="modal fade alert-danger" tabindex="-1"  id="error-modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">You got an error!</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/fingerprint/fingerprint.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery.cookie/jquery.cookie.js') }}"></script>
+
+    {# Since Admin can not add his device to device list #}
+    {% if is_granted("ROLE_ADMIN") == false %}
+        <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/Browser/src/browser.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/new-device-manager.js') }}"></script>
+        <script type="text/javascript">
+            $(function() {
+                "use strict";
+
+                var checkUrl = "{{ path("device_check") }}";
+                var addUrl = "{{ path("device_add") }}";
+                var showUrl = "{{ path("device_show", { 'id': '0' }) }}";
+
+                var ndm = new NewDeviceManager(checkUrl, addUrl, showUrl);
+
+                ndm.checkDevice();
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+

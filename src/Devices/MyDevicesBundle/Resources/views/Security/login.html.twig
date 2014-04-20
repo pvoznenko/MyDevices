@@ -1,0 +1,35 @@
+{% extends "DevicesMyDevicesBundle::anonymous-layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/signin.css') }}">
+{% endblock %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endif %}
+    <form  class="form-signin" role="form" action="{{ path("fos_user_security_check") }}" method="post">
+        <h2 class="form-signin-heading text-center">Please Login</h2>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <input type="text" class="form-control top-input" placeholder="Username" id="username" name="_username" value="{{ last_username }}" required="required" autofocus>
+
+        <input type="password" class="form-control bottom-input" placeholder="Password" id="password" name="_password" required="required">
+
+        <label class="checkbox">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" > {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+        </label>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" >{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+
+        <br/>
+        <div class="text-center">
+            <a href="{{ path("fos_user_registration_register") }}">Not yet registered? Register!</a>
+        </div>
+    </form>
+{% endblock fos_user_content %}

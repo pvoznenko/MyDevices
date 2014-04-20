@@ -1,0 +1,122 @@
+{% extends "DevicesMyDevicesBundle::layout.html.twig" %}
+
+{% block title %}My Device::Edit{% endblock %}
+
+{% block content %}
+    <h1>Edit Device</h1>
+
+    {{ form_start(edit_form, { 'attr': {'class': 'form-horizontal text-left', 'role': 'form', 'id': 'edit-device'} }) }}
+        {{ form_errors(edit_form) }}
+
+        {% if is_granted("ROLE_ADMIN") %}
+            <div class="form-group">
+                {{ form_label(edit_form.user, 'User:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+                <div class="col-sm-10">
+                    {{ form_widget(edit_form.user, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Id:</label>
+            <div class="col-sm-10">
+                <p class="form-control-static text-left">{{ edit_form.vars.value.id  }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Fingerprint:</label>
+            <div class="col-sm-10">
+                <p class="form-control-static text-left">{{ edit_form.vars.value.fingerprint  }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.userAgent, 'User Agent:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.userAgent, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.browserName, 'Browser Name:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.browserName, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.browserVersionString, 'Browser Version:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.browserVersionString, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.browserWidth, 'Browser Width:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.browserWidth, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.browserHeight, 'Browser Height:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.browserHeight, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.deviceScreenWidth, 'Device Width:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.deviceScreenWidth, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.deviceScreenHeight, 'Device Height:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.deviceScreenHeight, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.device, 'Device:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.device, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.osName, 'OS Name:', {'label_attr': {'class': 'col-sm-2 control-label'} } ) }}
+            <div class="col-sm-10">
+                {{ form_widget(edit_form.osName, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Added:</label>
+            <div class="col-sm-10">
+                <p class="form-control-static text-left">{{ edit_form.vars.value.createdAt|date('Y-m-d H:i:s')  }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Last Modified:</label>
+            <div class="col-sm-10">
+                <p class="form-control-static text-left">{{ edit_form.vars.value.modifiedAt|date('Y-m-d H:i:s')  }}</p>
+            </div>
+        </div>
+
+        <ul class="record_actions list-inline text-center">
+            <li>
+                <a class="btn btn-default" role="button" href="{{ path('device_show', { 'id': entity.id }) }}">
+                    Back to Device View
+                </a>
+            </li>
+            <li>
+                {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-primary', 'role': 'button'} }) }}
+            </li>
+        </ul>
+        <div class="hidden">{{ form_rest(edit_form) }}</div>
+    {{ form_end(edit_form) }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('#form_submit').addClass('btn btn-danger').attr('role', 'button');
+        });
+    </script>
+{% endblock %}
+

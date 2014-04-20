@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}My Devices::Login{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/style.css') }}">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% block content %}
+            {{ block('fos_user_content') }}
+        {% endblock %}
+    </div><!-- /.container -->
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery.cookie/jquery.cookie.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $.removeCookie('DEVICE_FINGERPRINT', { expires: 365, path: '/' });
+        });
+    </script>
+{% endblock %}
+

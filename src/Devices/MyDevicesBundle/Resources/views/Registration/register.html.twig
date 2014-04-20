@@ -1,0 +1,44 @@
+{% extends "DevicesMyDevicesBundle::anonymous-layout.html.twig" %}
+
+{% block title %}My Devices::Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/register.css') }}">
+{% endblock %}
+
+{% block fos_user_content %}
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-reg">
+        <h2 class="form-reg-heading">Please Register</h2>
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control top-input', 'placeholder': 'Username', 'required': 'required'}}) }}
+
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control middle-input', 'placeholder': 'Email', 'required': 'required', 'type': 'email'}}) }}
+
+        {{ form_errors(form.plainPassword.first) }}
+        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control middle-input', 'placeholder': 'Password', 'required': 'required', 'type': 'password'}}) }}
+
+        {{ form_errors(form.plainPassword.second) }}
+        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control bottom-input', 'placeholder': 'Repeat Password', 'required': 'required', 'type': 'password'}}) }}
+
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" >{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+
+        <br/>
+        <a href="{{ path("fos_user_security_login") }}">Get me back to login page!</a>
+
+        <div class="hidden">{{ form_rest(form) }}</div>
+    </form>
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $('.form-reg ul').addClass('alert alert-danger');
+        });
+    </script>
+{% endblock %}

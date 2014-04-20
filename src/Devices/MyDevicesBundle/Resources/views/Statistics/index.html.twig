@@ -1,0 +1,47 @@
+{% extends "DevicesMyDevicesBundle::layout.html.twig" %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block content %}
+    <h1>Statistics About Device Characteristics</h1>
+
+    <div id="pie-type-of-device" style="min-width: 310px; height: 400px; margin: 0 auto">Loading Type of Device...</div>
+    <div id="pie-os" style="min-width: 310px; height: 400px; margin: 0 auto">Loading OS...</div>
+    <div id="pie-browser" style="min-width: 310px; height: 400px; margin: 0 auto">Loading Browser...</div>
+    <div id="pie-device-screen-size" style="min-width: 310px; height: 400px; margin: 0 auto">Loading Device Screen Size...</div>
+    <div id="pie-browser-size" style="min-width: 310px; height: 400px; margin: 0 auto">Loading Browser Screen Size...</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/highcharts/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/highcharts/modules/exporting.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/pie-chart-manager.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function(undefined) {
+            "use strict";
+
+            var dataUrl = '{{ path("statistics_pie_chart_data") }}';
+            var pieCharts = [
+                {name: 'type-of-device', title: 'Type of Devices'},
+                {name: 'os', title: 'Operation Systems'},
+                {name: 'browser', title: 'Browsers'},
+                {name: 'device-screen-size', title: 'Device Screen Size'},
+                {name: 'browser-size', title: 'Browser Size'}
+            ];
+            var callback = function (error, pieName) {
+                if (error) {
+                    $('#pie-' + pieName).text(error);
+                }
+            };
+
+            var pieChartManager = new PieChartManager(dataUrl);
+
+            for (var i in pieCharts) {
+                var chartObj = pieCharts[i];
+                pieChartManager(chartObj.name, chartObj.title, callback);
+            }
+        });
+    </script>
+{% endblock %}

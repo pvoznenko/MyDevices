@@ -1,0 +1,22 @@
+device:
+    pattern:  /
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:index" }
+
+DevicesMyDevicesBundle_device:
+    resource: "@DevicesMyDevicesBundle/Resources/config/routing/device.yml"
+    prefix:   /device
+
+statistics_index:
+    pattern:  /statistics
+    defaults: { _controller: "DevicesMyDevicesBundle:Statistics:index" }
+
+DevicesMyDevicesBundle_statistics:
+    resource: "@DevicesMyDevicesBundle/Resources/config/routing/statistics.yml"
+    prefix:   /statistics
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register

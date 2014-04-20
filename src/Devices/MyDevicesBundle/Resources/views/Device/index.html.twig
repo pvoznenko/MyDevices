@@ -1,0 +1,76 @@
+{% extends "DevicesMyDevicesBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/js/datatables-bootstrap3/BS3/assets/css/datatables.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>My Devices List</h1>
+
+    <table class="datatable table table-striped table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <th class="text-center">User</th>
+                {% endif %}
+                <th class="text-center">Device</th>
+                <th class="text-center">Browser Name</th>
+                <th class="text-center">Os Name</th>
+                <th class="text-center">Added</th>
+                <th class="text-center">Show More</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('device_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <td>{{ entity.user }}</td>
+                {% endif %}
+                <td>{{ entity.device }}</td>
+                <td>{{ entity.browserName }}</td>
+                <td>{{ entity.osName }}</td>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    <a class="btn btn-primary" role="button" href="{{ path('device_show', { 'id': entity.id }) }}">&rarr;</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/datatables/media/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/datatables-bootstrap3/BS3/assets/js/datatables.js') }}"></script>
+    {% if is_granted("ROLE_ADMIN") %}
+        {% set sortinColumn = 5 %}
+        {% set notSortinColumn = 6 %}
+    {% else %}
+        {% set sortinColumn = 4 %}
+        {% set notSortinColumn = 5 %}
+    {% endif %}
+
+    <script type="text/javascript">
+        $(function() {
+            $('.datatable').dataTable({
+                sPaginationType: "bs_full",
+                "aaSorting": [[ {{ sortinColumn }}, "desc" ]],
+                aoColumnDefs: [
+                    { "aTargets": [ {{ notSortinColumn }} ], "bSortable": false }
+                ]
+            });
+            var dataTable = $('.datatable');
+
+            var search_input = dataTable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+            search_input.attr('placeholder', 'Search')
+                .addClass('form-control input-sm');
+
+            var length_sel = dataTable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+            length_sel.addClass('form-control input-sm');
+        });
+    </script>
+{% endblock %}

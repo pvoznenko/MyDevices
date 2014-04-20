@@ -1,0 +1,10 @@
+{% extends "DevicesMyDevicesBundle::anonymous-layout.html.twig" %}
+
+{% block title %}My Devices::Register Confirmed!{% endblock %}
+
+{% block fos_user_content %}
+    <p class="lead">Congrats {{ user.username }}, your account is registered and activated.</p>
+    {% if app.session is not empty %}
+        <a href="{{ path("device") }}">Get me to the main page!</a>
+    {% endif %}
+{% endblock fos_user_content %}

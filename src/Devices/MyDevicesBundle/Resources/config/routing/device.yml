@@ -1,0 +1,27 @@
+device_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:show" }
+
+device_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:edit" }
+
+device_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:update" }
+    requirements: { _method: post|put }
+
+device_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:delete" }
+    requirements: { _method: post|delete }
+
+device_check:
+    pattern:  /check
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:checkDevice" }
+    requirements: { _method: post }
+
+device_add:
+    pattern:  /add
+    defaults: { _controller: "DevicesMyDevicesBundle:Device:addDevice" }
+    requirements: { _method: post }

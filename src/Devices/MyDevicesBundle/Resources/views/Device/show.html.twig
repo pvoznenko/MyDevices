@@ -1,0 +1,94 @@
+{% extends "DevicesMyDevicesBundle::layout.html.twig" %}
+
+{% block title %}My Device::Show{% endblock %}
+
+{% block content %}
+    <h1>Device Info</h1>
+
+    <table class="record_properties table table-striped table-hover table-condensed">
+        <tbody>
+            {% if is_granted("ROLE_ADMIN") %}
+                <tr>
+                    <th class="text-right">User:</th>
+                    <td class="text-left">{{ entity.user }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th class="text-right">Id:</th>
+                <td class="text-left">{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Fingerprint:</th>
+                <td class="text-left">{{ entity.fingerprint }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">User Agent:</th>
+                <td class="text-left">{{ entity.userAgent }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Browser Name:</th>
+                <td class="text-left">{{ entity.browserName }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Browser Version:</th>
+                <td class="text-left">{{ entity.browserVersionString }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Browser Width:</th>
+                <td class="text-left">{{ entity.browserWidth }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Browser Height:</th>
+                <td class="text-left">{{ entity.browserHeight }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Device Width:</th>
+                <td class="text-left">{{ entity.deviceScreenWidth }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Device Height:</th>
+                <td class="text-left">{{ entity.deviceScreenHeight }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Device:</th>
+                <td class="text-left">{{ entity.device }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">OS Name:</th>
+                <td class="text-left">{{ entity.osName }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Added:</th>
+                <td class="text-left">{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th class="text-right">Last Modified:</th>
+                <td class="text-left">{{ entity.modifiedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions list-inline">
+        <li>
+            <a class="btn btn-default" role="button" href="{{ path('device') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" role="button" href="{{ path('device_edit', { 'id': entity.id }) }}">
+                Edit Device
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('#form_submit').addClass('btn btn-danger').attr('role', 'button');
+        });
+    </script>
+{% endblock %}
+
