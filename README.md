@@ -90,13 +90,6 @@ and promote user with ‘`ROLE_ADMIN`’:
 
 Then you can login with this user to the system as administrator.
 
-
-
-I really would like to hear feedback from you about my code and application, so looking forward to hear from you guys!
-
-Have a nice Easter and best regards,
-Pavel Voznenko
-
 [1]: http://getbootstrap.com/
 [2]: https://datatables.net/
 [3]: https://github.com/Jowin/Datatables-Bootstrap3
