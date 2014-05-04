@@ -1,7 +1,7 @@
 My Devices Symfony 2 Application
 ================================
 
-I made Symfony2 application guided by specified goal, tools, steps and criteria.
+Demo Symfony2 project guided by specified goal, tools, steps and criteria.
 
 How to Run This Project
 -----------------------
@@ -65,7 +65,7 @@ Technical Information
     or [Backbone.js][9]. Libraries that been used in frontend depends on [jQuery][10] library;
 
   * For managing JS dependencies in Bundle, package manager [Bower][11] was used. Information about libraries and
-    versions you can find in Bundle `Devices/MyDevicesBundle/bower.json`;
+    versions you can find in Bundle `bower.json`;
 
   * During development of application I needed to create custom js module ‘NewDeviceManager'
     (`Devices/MyDevicesBundle/Resources/public/js/new-device-manager.js`) to handle checking and adding user's new devices.
