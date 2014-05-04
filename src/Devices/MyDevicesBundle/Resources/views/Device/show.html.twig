@@ -85,9 +85,11 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        $(function() {
-            $('#form_submit').addClass('btn btn-danger').attr('role', 'button');
+    <script>
+        require(['jquery', 'bootstrap'], function($){
+            $(function() {
+                $('#form_submit').addClass('btn btn-danger').attr('role', 'button');
+            });
         });
     </script>
 {% endblock %}

@@ -25,40 +25,44 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-
-    {% javascripts output='js/statistics.js' combine=true
-        'vendor/highcharts/highcharts.js'
-        'vendor/highcharts/modules/exporting.js'
-        '@DevicesMyDevicesBundle/Resources/public/js/pie-chart-manager.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
     <script type="text/javascript">
-        $(function(undefined) {
-            "use strict";
-
-            var dataUrl = Routing.generate('statistics_pie_chart_data');
-            var pieCharts = [
-                {name: 'type-of-device', title: 'Type of Devices'},
-                {name: 'os', title: 'Operation Systems'},
-                {name: 'browser', title: 'Browsers'},
-                {name: 'device-screen-size', title: 'Device Screen Size'},
-                {name: 'browser-size', title: 'Browser Size'}
-            ];
-            var callback = function (error, pieName) {
-                if (error) {
-                    $('#pie-' + pieName).text(error);
-                }
-            };
-
-            var pieChartManager = new PieChartManager(dataUrl);
-
-            for (var i in pieCharts) {
-                var chartObj = pieCharts[i];
-                pieChartManager(chartObj.name, chartObj.title, callback);
+        requirejs.config({
+            paths: {
+                "highcharts": '../vendor/highcharts/highcharts',
+                "highchartsModulesExporting": '../vendor/highcharts/modules/exporting'
+            },
+            shim: {
+                "highcharts": ['jquery'],
+                "highchartsModulesExporting": ['highcharts']
             }
+        });
+
+        require(['jquery', 'app/PieChartManager'], function($, PieChartManager){
+            $(function() {
+                "use strict";
+
+                var dataUrl = Routing.generate('statistics_pie_chart_data');
+                var pieCharts = [
+                    {name: 'type-of-device', title: 'Type of Devices'},
+                    {name: 'os', title: 'Operation Systems'},
+                    {name: 'browser', title: 'Browsers'},
+                    {name: 'device-screen-size', title: 'Device Screen Size'},
+                    {name: 'browser-size', title: 'Browser Size'}
+                ];
+
+                var callback = function (error, pieName) {
+                    if (error) {
+                        $('#pie-' + pieName).text(error);
+                    }
+                };
+
+                var pieChartManager = PieChartManager.PieChartManager(dataUrl);
+
+                for (var i in pieCharts) {
+                    var chartObj = pieCharts[i];
+                    pieChartManager(chartObj.name, chartObj.title, callback);
+                }
+            });
         });
     </script>
 {% endblock %}

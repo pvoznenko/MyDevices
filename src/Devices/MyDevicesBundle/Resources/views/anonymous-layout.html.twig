@@ -28,17 +28,26 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/requirejs/require.js') }}"></script>
 
-    {% javascripts output='js/amain.js' combine=true
-        'vendor/bootstrap/dist/js/bootstrap.min.js'
-        'vendor/jquery.cookie/jquery.cookie.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script>
+        requirejs.config({
+            baseUrl: '/assets/js',
+            paths: {
+                jquery: '../vendor/jquery/dist/jquery.min',
+                jqueryCookie: '../vendor/jquery.cookie/jquery.cookie',
+                bootstrap: '../vendor/bootstrap/dist/js/bootstrap.min'
+            },
+            shim: {
+                jqueryCookie: ['jquery'],
+                bootstrap: ['jquery']
+            }
+        });
 
-    <script type="text/javascript">
-        $(function() {
-            $.removeCookie('DEVICE_FINGERPRINT', { expires: 365, path: '/' });
+        require(['jquery', 'jqueryCookie', 'bootstrap'], function($){
+            $(function() {
+                $.removeCookie('DEVICE_FINGERPRINT', { expires: 365, path: '/' });
+            });
         });
     </script>
 {% endblock %}

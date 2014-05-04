@@ -38,9 +38,11 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript">
-        $(function() {
-            $('.form-reg ul').addClass('alert alert-danger');
+    <script>
+        require(['jquery'], function($){
+            $(function() {
+                $('.form-reg ul').addClass('alert alert-danger');
+            });
         });
     </script>
 {% endblock %}

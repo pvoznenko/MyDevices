@@ -46,9 +46,6 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script type="text/javascript" src="{{ asset('/vendor/datatables/media/js/jquery.dataTables.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/vendor/datatables-bootstrap3/BS3/assets/js/datatables.js') }}"></script>
-
     {% if is_granted("ROLE_ADMIN") %}
         {% set sortinColumn = 5 %}
         {% set notSortinColumn = 6 %}
@@ -57,23 +54,11 @@
         {% set notSortinColumn = 5 %}
     {% endif %}
 
-    <script type="text/javascript">
-        $(function() {
-            $('.datatable').dataTable({
-                sPaginationType: "bs_full",
-                "aaSorting": [[ {{ sortinColumn }}, "desc" ]],
-                aoColumnDefs: [
-                    { "aTargets": [ {{ notSortinColumn }} ], "bSortable": false }
-                ]
+    <script>
+        require(['jquery', 'app/datatableDeviceList'], function($, datatableDeviceList){
+            $(function() {
+                datatableDeviceList.getDatatable({{ sortinColumn }}, {{ notSortinColumn }});
             });
-
-            var dataTable = $('.datatable');
-
-            var searchInput = dataTable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-            searchInput.attr('placeholder', 'Search').addClass('form-control input-sm');
-
-            var lengthSel = dataTable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-            lengthSel.addClass('form-control input-sm');
         });
     </script>
 {% endblock %}

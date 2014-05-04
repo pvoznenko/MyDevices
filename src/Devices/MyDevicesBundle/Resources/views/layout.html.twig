@@ -96,37 +96,45 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/requirejs/require.js') }}"></script>
 
-    {% javascripts output='js/main.js' combine=true
-        'vendor/bootstrap/dist/js/bootstrap.min.js'
-        'vendor/fingerprint/fingerprint.js'
-        'vendor/jquery.cookie/jquery.cookie.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script>
+        requirejs.config({
+            baseUrl: '/assets/js',
+            paths: {
+                "jquery": '../vendor/jquery/dist/jquery.min',
+                "jqueryCookie": '../vendor/jquery.cookie/jquery.cookie',
+                "bootstrap": '../vendor/bootstrap/dist/js/bootstrap.min',
+                "fingerprint": '../vendor/fingerprint/fingerprint',
+                "browser": '../vendor/Browser/src/browser',
+                "datatables": '/assets/vendor/datatables/media/js/jquery.dataTables',
+                "datatablesBootstrap": '../vendor/datatables-bootstrap3/BS3/assets/js/datatables'
+            },
+            shim: {
+                "jqueryCookie": ['jquery'],
+                "bootstrap": ['jquery'],
+                "datatables": ['jquery'],
+                "datatablesBootstrap": ['datatables', 'bootstrap']
+            }
+        });
+    </script>
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
     {# Since Admin can not add his device to device list #}
     {% if is_granted("ROLE_ADMIN") == false %}
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script>
+            require(['jquery', 'app/newDeviceManager'], function($, DeviceManager){
+                $(function() {
+                    "use strict";
 
-        {% javascripts output='js/device.js' combine=true
-            'vendor/Browser/src/browser.js'
-            '@DevicesMyDevicesBundle/Resources/public/js/new-device-manager.js' %}
-            <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
+                    var checkUrl = Routing.generate('device_check');
+                    var addUrl = Routing.generate('device_add');
+                    var showUrl = Routing.generate('device_show', { 'id': '0' });
 
-        <script type="text/javascript">
-            $(function() {
-                "use strict";
-
-                var checkUrl = Routing.generate('device_check');
-                var addUrl = Routing.generate('device_add');
-                var showUrl = Routing.generate('device_show', { 'id': '0' });
-
-                var ndm = new NewDeviceManager(checkUrl, addUrl, showUrl);
-
-                ndm.checkDevice();
+                    DeviceManager.NewDeviceManager(checkUrl, addUrl, showUrl).checkDevice();
+                });
             });
         </script>
     {% endif %}

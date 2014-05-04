@@ -1,7 +1,7 @@
-My Devices Symfony 2 Application
-================================
+My Devices Symfony 2 Application (version with [RequireJS][18])
+==========================================================
 
-I made Symfony2 application guided by specified goal, tools, steps and criteria.
+Demo Symfony2 project guided by specified goal, tools, steps and criteria.
 
 How to Run This Project
 -----------------------
@@ -65,17 +65,18 @@ Technical Information
     or [Backbone.js][9]. Libraries that been used in frontend depends on [jQuery][10] library;
 
   * For managing JS dependencies in Bundle, package manager [Bower][11] was used. Information about libraries and
-    versions you can find in Bundle `Devices/MyDevicesBundle/bower.json`;
+    versions you can find in Bundle `bower.json`;
+
+  * For module loading [RequireJS][18] been used;
 
   * During development of application I needed to create custom js module ‘NewDeviceManager'
-    (`Devices/MyDevicesBundle/Resources/public/js/new-device-manager.js`) to handle checking and adding user's new devices.
-    This is the only place where I could use [Backbone.js][9] to handle action in index view to structure code, but I am not
-    sure about the efficiency of using the whole library just to handle two requests, since it is made as it is. I know that if
-    this project went live, for future development to have structure code (to avoid spaghetti monster) it preferable to
-    use some MVC / MVP JS libraries. So in current task (scope) I prefer [YAGNI][12] principle (You aren't gonna need it);
+    (`web/assets/js/app/newDeviceManager.js`) to handle checking and adding user's new devices;
 
-  * Second custom js module is 'PieChartManager' (`Devices/MyDevicesBundle/Resources/public/js/pie-chart-manager.js`).
+  * Second custom js module is 'PieChartManager' (`web/assets/js/app/pieChartManager.js`);
     Used for asynchronous ajax data loading and rendering for [Highcharts][4] Pie Chart for admin user for device statistics.
+
+  * Third small module 'DatatableDeviceList' (`web/assets/js/app/datatableDeviceList.js`).
+    Used rendering [datatable][2] with list of devices.
 
 ### Backend
 
@@ -149,3 +150,4 @@ Then you can login with this user to the system as administrator.
 [15]: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
 [16]: https://github.com/FriendsOfSymfony/FOSUserBundle
 [17]: http://phpunit.de/
+[18]: http://requirejs.org/
