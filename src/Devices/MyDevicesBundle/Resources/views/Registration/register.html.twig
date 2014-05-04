@@ -5,7 +5,9 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/register.css') }}">
+    {% stylesheets '@DevicesMyDevicesBundle/Resources/public/css/register.css' output='css/register.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}
 
 {% block fos_user_content %}

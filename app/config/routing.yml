@@ -1,3 +1,7 @@
 devices_my_devices:
     resource: "@DevicesMyDevicesBundle/Resources/config/routing.yml"
     prefix:   /
+
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

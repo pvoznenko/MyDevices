@@ -3,7 +3,9 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/signin.css') }}">
+    {% stylesheets '@DevicesMyDevicesBundle/Resources/public/css/signin.css' output='css/signin.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 {% endblock %}
 
 {% block fos_user_content %}

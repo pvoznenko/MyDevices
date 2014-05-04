@@ -1,6 +1,8 @@
 device_show:
     pattern:  /{id}/show
     defaults: { _controller: "DevicesMyDevicesBundle:Device:show" }
+    options:
+        expose: true
 
 device_edit:
     pattern:  /{id}/edit
@@ -20,8 +22,12 @@ device_check:
     pattern:  /check
     defaults: { _controller: "DevicesMyDevicesBundle:Device:checkDevice" }
     requirements: { _method: post }
+    options:
+        expose: true
 
 device_add:
     pattern:  /add
     defaults: { _controller: "DevicesMyDevicesBundle:Device:addDevice" }
     requirements: { _method: post }
+    options:
+        expose: true

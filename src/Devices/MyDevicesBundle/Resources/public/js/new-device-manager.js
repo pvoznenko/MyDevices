@@ -80,7 +80,7 @@ var NewDeviceManager = function(checkUrl, addUrl, showUrl) {
     function setCookie()
     {
         $.cookie(cookieKey, deviceFingerPrint, { expires: 365, path: '/' });
-    };
+    }
 
     /**
      * Module error handler
@@ -93,7 +93,7 @@ var NewDeviceManager = function(checkUrl, addUrl, showUrl) {
 
         $('#error-modal .modal-body').text(errorMessage);
         $('#error-modal').modal('show');
-    };
+    }
 
     return this;
 };

@@ -3,6 +3,46 @@ My Devices Symfony 2 Application
 
 I made Symfony2 application guided by specified goal, tools, steps and criteria.
 
+How to Run This Project
+-----------------------
+
+Use [Composer][13] to update vendor libraries:
+
+    $ php composer.phar install
+
+If you do not have [Composer][13] you can install it in your project:
+
+    $ curl -sS https://getcomposer.org/installer | php
+
+Before running Symfony2 for the first time, execute the following command to make sure that your system meets all the
+technical requirements:
+
+    $ php app/check.php
+
+More information about installation you can find in Symfony2 docs: [http://symfony.com/doc/current/quick_tour/the_big_picture.html][14]
+
+Then we need to have all our vendor JS libraries. To manage packages app using [Bower][11]. Run command:
+
+    $ bower install
+
+Then we need install our assets:
+
+    $ php app/console assetic:dump
+
+And publish assets for [FOSJsRoutingBundle][15]:
+
+    $ php app/console assets:install --symlink web
+
+To install DB scheme use command:
+
+    $ php app/console doctrine:schema:create
+
+Make sure you have correct config for db at file: `app/config/parameters.yml`
+
+To run functional test with [PHPUnit][17] use command:
+
+    $ phpunit -c app/phpunit.xml.dist
+
 Technical Information
 ---------------------
 
@@ -41,12 +81,14 @@ Technical Information
 
   * For current task all logic implemented in MyDevicesBundle;
 
-  * For Registration and Login application using FOSUserBundle. Templates for Login and Registration was override in
+  * For Registration and Login application using [FOSUserBundle][16]. Templates for Login and Registration was override in
     MyDevicesBundle, so it use overall responsive templates. There is no page for user profile and account deletion;
 
   * Application access control specified in config `security.yml`;
 
   * MyDevicesBundle contains functional tests;
+
+  * For handle application URLs in javascript [FOSJsRoutingBundle][15] used;
 
   * There are two DB tables ‘`user`' and ‘`device`’ with one-to-many connection and on cascade remove. Also for current
     task I did not see a reason to do over-engineering with DB structure, like implementing Dictionary for device’s attributes
@@ -102,3 +144,8 @@ Then you can login with this user to the system as administrator.
 [10]: http://jquery.com/
 [11]: https://github.com/bower/bower
 [12]: http://en.wikipedia.org/wiki/You_aren't_gonna_need_it
+[13]: https://getcomposer.org/
+[14]: http://symfony.com/doc/current/quick_tour/the_big_picture.html
+[15]: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
+[16]: https://github.com/FriendsOfSymfony/FOSUserBundle
+[17]: http://phpunit.de/

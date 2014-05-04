@@ -3,13 +3,19 @@
 {% block title %}My Devices{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/devicesmydevices/css/style.css') }}">
+    {% stylesheets output='css/main.css' combine=true
+        'vendor/bootstrap/dist/css/bootstrap.min.css'
+        '@DevicesMyDevicesBundle/Resources/public/css/style.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    {% javascripts output='js/fixie9.js' combine=true
+        'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'
+        'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     <![endif]-->
 {% endblock %}
 
@@ -90,22 +96,33 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/fingerprint/fingerprint.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/jquery.cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+
+    {% javascripts output='js/main.js' combine=true
+        'vendor/bootstrap/dist/js/bootstrap.min.js'
+        'vendor/fingerprint/fingerprint.js'
+        'vendor/jquery.cookie/jquery.cookie.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
     {# Since Admin can not add his device to device list #}
     {% if is_granted("ROLE_ADMIN") == false %}
-        <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/Browser/src/browser.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/bundles/devicesmydevices/js/new-device-manager.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+        {% javascripts output='js/device.js' combine=true
+            'vendor/Browser/src/browser.js'
+            '@DevicesMyDevicesBundle/Resources/public/js/new-device-manager.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
         <script type="text/javascript">
             $(function() {
                 "use strict";
 
-                var checkUrl = "{{ path("device_check") }}";
-                var addUrl = "{{ path("device_add") }}";
-                var showUrl = "{{ path("device_show", { 'id': '0' }) }}";
+                var checkUrl = Routing.generate('device_check');
+                var addUrl = Routing.generate('device_add');
+                var showUrl = Routing.generate('device_show', { 'id': '0' });
 
                 var ndm = new NewDeviceManager(checkUrl, addUrl, showUrl);
 
