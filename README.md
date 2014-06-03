@@ -1,8 +1,6 @@
 My Devices Symfony 2 Application
 ================================
 
-[![Build Status][18]][19]
-
 Demo Symfony2 project guided by specified goal, tools, steps and criteria.
 
 How to Run This Project
