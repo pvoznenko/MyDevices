@@ -1,6 +1,8 @@
 My Devices Symfony 2 Application
 ================================
 
+[![Build Status][18]][19]
+
 Demo Symfony2 project guided by specified goal, tools, steps and criteria.
 
 How to Run This Project
@@ -149,3 +151,5 @@ Then you can login with this user to the system as administrator.
 [15]: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle
 [16]: https://github.com/FriendsOfSymfony/FOSUserBundle
 [17]: http://phpunit.de/
+[18]: https://travis-ci.org/fosco-maestro/MyDevices.svg
+[19]: https://travis-ci.org/fosco-maestro/MyDevices
