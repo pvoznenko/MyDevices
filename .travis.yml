@@ -5,6 +5,14 @@ php:
   - 5.3
   - 5.4
 
+notifications:
+  email:
+    - p.voznenko@gmail.com
+
+branches:
+  only:
+    - master
+    
 before_script: composer install -n
 
 script: phpunit -c app
